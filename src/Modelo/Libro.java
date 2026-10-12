@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.List;
+
 public class Libro {
     private String isbn;
     private String titulo;
@@ -7,11 +9,10 @@ public class Libro {
     private int numPaginas;
     private String codigo;
     private String estado;
+    private Estanteria estanteria;
+    private List<PrestamoLibro> listaPrestamosLibro;
     
-    public void añadirNuevoLibro(){}
-    public void eliminarLibro(){}
-    public void modificarLibro(){}
-    
+    public void actualizarDatos(){}
     //
 
     public Libro() {
@@ -64,6 +65,20 @@ public class Libro {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
+
+    public Estanteria getEstanteria() {
+        return estanteria;
+    }
+
+    public void setEstanteria(Estanteria estanteria) {
+        this.estanteria = estanteria;
+    }
+
+    public List<PrestamoLibro> getListaPrestamosLibro() {
+        return listaPrestamosLibro;
+    }
+
+    public void setListaPrestamosLibro(List<PrestamoLibro> listaPrestamosLibro) {
+        this.listaPrestamosLibro = listaPrestamosLibro;
+    }
 }

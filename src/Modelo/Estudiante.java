@@ -1,0 +1,103 @@
+package Modelo;
+
+import java.util.List;
+
+public class Estudiante {
+    private String carnet;
+    private String nombreCompleto;
+    private String carrera;
+    private boolean inactivo;
+    private boolean bloqueo;
+    private String contrasenia;
+    private boolean prestamoActivo;
+    private List<PrestamoLibro> listaPrestamosLibro;
+    private List<PrestamoCabina> listaPrestamosCabina;
+    private List<PrestamoComputadora> listaPrestamosComputadora;
+    
+    public void consultarEstado(){}
+    public void realizarPrestamo(){}
+    public void verPrestamo(){}
+    //
+    public Estudiante() {
+    }
+
+    public String getCarnet() {
+        return carnet;
+    }
+
+    public void setCarnet(String carnet) {
+        this.carnet = carnet;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+
+    public boolean isInactivo() {
+        return inactivo;
+    }
+
+    public void setInactivo(boolean inactivo) {
+        this.inactivo = inactivo;
+    }
+
+    public boolean isBloqueo() {
+        return bloqueo;
+    }
+
+    public void setBloqueo(boolean bloqueo) {
+        this.bloqueo = bloqueo;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public boolean isPrestamoActivo() {
+        return prestamoActivo;
+    }
+
+    public void setPrestamoActivo(boolean prestamoActivo) {
+        this.prestamoActivo = prestamoActivo;
+    }
+
+    public List<PrestamoLibro> getListaPrestamosLibro() {
+        return listaPrestamosLibro;
+    }
+
+    public void setListaPrestamosLibro(List<PrestamoLibro> listaPrestamosLibro) {
+        this.listaPrestamosLibro = listaPrestamosLibro;
+    }
+
+    public List<PrestamoCabina> getListaPrestamosCabina() {
+        return listaPrestamosCabina;
+    }
+
+    public void setListaPrestamosCabina(List<PrestamoCabina> listaPrestamosCabina) {
+        this.listaPrestamosCabina = listaPrestamosCabina;
+    }
+
+    public List<PrestamoComputadora> getListaPrestamosComputadora() {
+        return listaPrestamosComputadora;
+    }
+
+    public void setListaPrestamosComputadora(List<PrestamoComputadora> listaPrestamosComputadora) {
+        this.listaPrestamosComputadora = listaPrestamosComputadora;
+    }   
+}

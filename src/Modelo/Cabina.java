@@ -1,9 +1,13 @@
 package Modelo;
 
+import java.util.List;
+
 public class Cabina {
     private String sede;
     private String telefono;
     private String correo;
+    private Biblioteca biblioteca;
+    private List<PrestamoCabina> listaPrestamosCabina;
     
     public void mostrarEmpleados(){}
     public void mostrarComputadoras(){}

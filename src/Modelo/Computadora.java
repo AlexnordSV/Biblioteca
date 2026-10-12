@@ -1,11 +1,16 @@
 package Modelo;
 
+import java.util.List;
+
 public class Computadora {
     private String idComputadora;
     private String equipo;
     private String sistemaOperativo;
     private String usuarioSistema;
     private String estado;
+    private Biblioteca biblioteca;
+    private List<PrestamoComputadora> listaPrestamosComputadoras;
+    
     //
     public Computadora() {
     }
@@ -48,5 +53,21 @@ public class Computadora {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Biblioteca getBiblioteca() {
+        return biblioteca;
+    }
+
+    public void setBiblioteca(Biblioteca biblioteca) {
+        this.biblioteca = biblioteca;
+    }
+
+    public List<PrestamoComputadora> getListaPrestamosComputadoras() {
+        return listaPrestamosComputadoras;
+    }
+
+    public void setListaPrestamosComputadoras(List<PrestamoComputadora> listaPrestamosComputadoras) {
+        this.listaPrestamosComputadoras = listaPrestamosComputadoras;
     }
 }
