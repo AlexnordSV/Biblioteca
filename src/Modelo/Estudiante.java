@@ -44,14 +44,6 @@ public class Estudiante {
         this.carrera = carrera;
     }
 
-    public boolean isInactivo() {
-        return inactivo;
-    }
-
-    public void setInactivo(boolean inactivo) {
-        this.inactivo = inactivo;
-    }
-
     public boolean isBloqueo() {
         return bloqueo;
     }
