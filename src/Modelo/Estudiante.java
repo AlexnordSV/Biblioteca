@@ -6,7 +6,6 @@ public class Estudiante {
     private String carnet;
     private String nombreCompleto;
     private String carrera;
-    private boolean inactivo;
     private boolean bloqueo;
     private String contrasenia;
     private boolean prestamoActivo;
