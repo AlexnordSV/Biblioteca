@@ -9,6 +9,7 @@ public class Estudiante {
     private boolean bloqueo;
     private String contrasenia;
     private boolean prestamoActivo;
+    private Biblioteca biblioteca;
     private List<PrestamoLibro> listaPrestamosLibro;
     private List<PrestamoCabina> listaPrestamosCabina;
     private List<PrestamoComputadora> listaPrestamosComputadora;

@@ -10,6 +10,7 @@ public class Biblioteca {
     private List<Bibliotecario> listaEmpleados;
     private List<Cabina> listaCabinas;
     private List<Computadora> listaComputadoras;
+    private List<Estudiante> listaEstudiantes;
     
     public void mostrarEmpleados(){}
     public void mostrarComputadoras(){}
@@ -59,5 +60,31 @@ public class Biblioteca {
 
     public void setListaEmpleados(List<Bibliotecario> listaEmpleados) {
         this.listaEmpleados = listaEmpleados;
-    }    
+    }
+
+    public List<Cabina> getListaCabinas() {
+        return listaCabinas;
+    }
+
+    public void setListaCabinas(List<Cabina> listaCabinas) {
+        this.listaCabinas = listaCabinas;
+    }
+
+    public List<Computadora> getListaComputadoras() {
+        return listaComputadoras;
+    }
+
+    public void setListaComputadoras(List<Computadora> listaComputadoras) {
+        this.listaComputadoras = listaComputadoras;
+    }
+
+    public List<Estudiante> getListaEstudiantes() {
+        return listaEstudiantes;
+    }
+
+    public void setListaEstudiantes(List<Estudiante> listaEstudiantes) {
+        this.listaEstudiantes = listaEstudiantes;
+    }
+
+    
 }
