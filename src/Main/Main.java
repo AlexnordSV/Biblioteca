@@ -13,6 +13,6 @@ public class Main {
         
         VistaBiblioteca vistaBiblioteca = new VistaBiblioteca(bibliotecaFmp);
         ControladorBiblioteca controladorBiblioteca = new ControladorBiblioteca(vistaBiblioteca, bibliotecaFmp);
-        controladorBiblioteca.controladorMostrarBiblioteca();
+        controladorBiblioteca.menuInicioSesion();
     }   
 }

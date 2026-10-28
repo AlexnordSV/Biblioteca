@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Biblioteca {
@@ -7,10 +8,10 @@ public class Biblioteca {
     private String telefono;
     private String correo;
     private List<Estanteria> listaEstanteria;
-    private List<Bibliotecario> listaEmpleados;
+    private HashMap<String, Bibliotecario> mapaBibliotecarios;
     private List<Cabina> listaCabinas;
     private List<Computadora> listaComputadoras;
-    private List<Estudiante> listaEstudiantes;
+    private HashMap<String, Estudiante> mapaEstudiantes;
     
     public void mostrarEmpleados(){}
     public void mostrarComputadoras(){}
@@ -54,14 +55,6 @@ public class Biblioteca {
         this.listaEstanteria = listaEstanteria;
     }
 
-    public List<Bibliotecario> getListaEmpleados() {
-        return listaEmpleados;
-    }
-
-    public void setListaEmpleados(List<Bibliotecario> listaEmpleados) {
-        this.listaEmpleados = listaEmpleados;
-    }
-
     public List<Cabina> getListaCabinas() {
         return listaCabinas;
     }
@@ -78,13 +71,42 @@ public class Biblioteca {
         this.listaComputadoras = listaComputadoras;
     }
 
-    public List<Estudiante> getListaEstudiantes() {
-        return listaEstudiantes;
+    public HashMap<String, Bibliotecario> getMapaBibliotecarios() {
+        return mapaBibliotecarios;
     }
 
-    public void setListaEstudiantes(List<Estudiante> listaEstudiantes) {
-        this.listaEstudiantes = listaEstudiantes;
+    public void setMapaBibliotecarios(HashMap<String, Bibliotecario> mapaBibliotecarios) {
+        this.mapaBibliotecarios = mapaBibliotecarios;
     }
 
-    
+    public HashMap<String, Estudiante> getMapaEstudiantes() {
+        return mapaEstudiantes;
+    }
+
+    public void setMapaEstudiantes(HashMap<String, Estudiante> mapaEstudiantes) {
+        this.mapaEstudiantes = mapaEstudiantes;
+    }
+    //
+
+
+    public Estudiante validarLoginEstudiante(String carnet, String contrasenia) {
+        Estudiante estudiante = mapaEstudiantes.get(carnet);
+        if (estudiante != null && estudiante.getContrasenia().equals(contrasenia)) {
+            return estudiante;
+        }
+        return null; 
+    }
+
+    public Bibliotecario validarLoginBibliotecario(String usuario, String contrasenia) {
+        Bibliotecario bibliotecario = mapaBibliotecarios.get(usuario);
+        if (bibliotecario != null && bibliotecario.getContrasenia().equals(contrasenia)) {
+            return bibliotecario;
+        }
+        return null;
+    }
+
+    public void agregarEstudiante(Estudiante estudiante) {
+        mapaEstudiantes.put(estudiante.getCarnet(), estudiante);
+    }
+
 }
