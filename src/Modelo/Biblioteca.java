@@ -8,11 +8,11 @@ public class Biblioteca {
     private String telefono;
     private String correo;
     private List<Estanteria> listaEstanteria;
-    private HashMap<String, Bibliotecario> mapaBibliotecarios;
     private List<Cabina> listaCabinas;
     private List<Computadora> listaComputadoras;
-    private HashMap<String, Estudiante> mapaEstudiantes;
-    
+    private HashMap<String, Estudiante> mapaEstudiantes = new HashMap<>();
+    private HashMap<String, Bibliotecario> mapaBibliotecarios = new HashMap<>();
+        
     public void mostrarEmpleados(){}
     public void mostrarComputadoras(){}
     public void mostrarCabinas(){}
@@ -108,5 +108,8 @@ public class Biblioteca {
     public void agregarEstudiante(Estudiante estudiante) {
         mapaEstudiantes.put(estudiante.getCarnet(), estudiante);
     }
-
+    
+    public void registrarBibliotecario(Bibliotecario bibliotecario){
+        mapaBibliotecarios.put(bibliotecario.getCorreo(), bibliotecario);
+    }
 }

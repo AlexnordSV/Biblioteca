@@ -21,6 +21,16 @@ public class Estudiante {
     public Estudiante() {
     }
 
+    public Estudiante(String carnet, String nombreCompleto, String carrera, String contrasenia, Biblioteca biblioteca) {
+        this.carnet = carnet;
+        this.nombreCompleto = nombreCompleto;
+        this.carrera = carrera;
+        this.contrasenia = contrasenia;
+        this.biblioteca = biblioteca;
+    }
+
+    
+    
     public String getCarnet() {
         return carnet;
     }

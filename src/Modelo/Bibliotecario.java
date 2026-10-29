@@ -13,6 +13,16 @@ public class Bibliotecario {
     public Bibliotecario() {
     }
 
+    public Bibliotecario(String dui, String idTrabajador, String nombreCompleto, String correo, String usuario, String contrasenia, Biblioteca biblioteca) {
+        this.dui = dui;
+        this.idTrabajador = idTrabajador;
+        this.nombreCompleto = nombreCompleto;
+        this.correo = correo;
+        this.usuario = usuario;
+        this.contrasenia = contrasenia;
+        this.biblioteca = biblioteca;
+    }
+    
     public String getDui() {
         return dui;
     }
