@@ -12,6 +12,14 @@ public class Libro {
     private Estanteria estanteria;
     private List<PrestamoLibro> listaPrestamosLibro;
     
+    public Libro(String isbn, String titulo, String autor, int numPaginas, String codigo){
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.numPaginas = numPaginas;
+        this.codigo = codigo;
+    }
+    
     public void actualizarDatos(){}
     //
 

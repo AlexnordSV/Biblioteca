@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Estanteria {
@@ -8,9 +9,18 @@ public class Estanteria {
     private int capacidad;
     private int capacidadActual;
     private Biblioteca biblioteca;
-    private List<Libro> listaLibros;
+    private List<Libro> listaLibros = new ArrayList<Libro>();
+
+    public Estanteria(String idEstanteria, String catalogo, int capacidad, Biblioteca biblioteca) {
+        this.idEstanteria = idEstanteria;
+        this.catalogo = catalogo;
+        this.capacidad = capacidad;
+        this.biblioteca = biblioteca;
+    }
     
-    public void añadirLibro(){}
+    public void añadirLibro(Libro libro){
+        this.listaLibros.add(libro);
+    }
     public void retirarLibro(){}
     public boolean estaLlena(){return false;}
     public void agregarLibro(){}

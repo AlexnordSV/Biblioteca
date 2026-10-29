@@ -27,11 +27,11 @@ public class ControladorBiblioteca {
             if (bibliotecario != null) {
                 vistaBiblioteca.mostrarMensaje("Inicio de sesión valido!");
                 acceso=true;
-                
+                mostrarMenuBibliotecario(bibliotecario);
                 break;
             }
 
-            Estudiante estudiante = biblioteca.validarLoginEstudiante(id, password);
+            Estudiante estudiante = biblioteca.validarLoginEstudiante(id.toUpperCase(), password);
             if (estudiante != null) {
                 vistaBiblioteca.mostrarMensaje("Inicio de sesión valido!");
                 acceso=true;
@@ -39,18 +39,39 @@ public class ControladorBiblioteca {
                 break;
                 
             }
-
             vistaBiblioteca.mostrarMensaje("Credenciales no validas");
         }
 
     }
     
     private void mostrarMenuEstudiante(Estudiante estudiante){
-        vistaBiblioteca.menuEstudiante(estudiante);
+        int opcion=0;
+        do{
+            opcion=vistaBiblioteca.menuEstudiante(estudiante);
+            switch(opcion){
+                case 1:
+                    vistaBiblioteca.mostrarMensaje("\nAccediendo al menu de prestamos de libros.");
+                    break;
+                case 2:
+                    vistaBiblioteca.mostrarMensaje("\nAccediendo al menu de prestamos de cabinas.");
+                    break;
+                case 3:
+                    vistaBiblioteca.mostrarMensaje("\nAccediendo al menu de prestamo de computadoras.");
+                    break;
+                case 4:
+                    vistaBiblioteca.mostrarMensaje("\nCerrando sesión!");
+                    menuInicioSesion();
+                    break;
+                    
+                default: 
+                    vistaBiblioteca.mostrarMensaje("[ERROR], opcion no valida, digite un numero entre el 1 y 4");
+            }
+            
+        }while(opcion!=4);
     }
     
-    private void mostrarMenuBibliotecario(){
-        
+    private void mostrarMenuBibliotecario(Bibliotecario bibliotecario){
+        vistaBiblioteca.menuBibliotecario(bibliotecario);
     }
     
     

@@ -1,6 +1,7 @@
 package Vista;
 
 import Modelo.Biblioteca;
+import Modelo.Bibliotecario;
 import Modelo.Estudiante;
 import java.util.Scanner;
 
@@ -27,7 +28,6 @@ public class VistaBiblioteca {
     }
     
     
-    
     private void mostrarDetallesBiblioteca(Biblioteca biblioteca){
         System.out.println("=====INFORMACION GENERAL=====");
         System.out.println("BIBLIOTECA: "+biblioteca.getSede());
@@ -36,10 +36,21 @@ public class VistaBiblioteca {
         System.out.println("=============================");
     }
     
-    public void menuEstudiante(Estudiante estudiante){
+    public int menuEstudiante(Estudiante estudiante){
         System.out.println("Bienvenido "+estudiante.getNombreCompleto());
-        System.out.println("Menu de prestamos.\n1-Realizar prestamo libro.\n2-Realizar prestamo cabina\n3-Realizar prestamo computadora.");
+        System.out.println("Menu de prestamos.\n1. Menu prestamo libro.\n2. Menu prestamo cabina\n3. Menu prestamo computadora.\n4. Cerrar sesion");
         System.out.println("Digite la opción a realizar: ");
-        int opc = scanner.nextInt();
+        return scanner.nextInt();
+    }
+    
+    public int menuBibliotecario(Bibliotecario bibliotecario){
+        System.out.println("Bienvenido: "+bibliotecario.getNombreCompleto()+" ("+bibliotecario.getUsuario()+")");
+        System.out.println("Menu de administrador/bibliotecario");
+        System.out.println("1. Ver inventario general de biblioteca\n2. Ver estanterias\n3. Ver prestamos activos"
+                + "\n 4. Libros (modificar, eliminar, mover de estanterias y añadir libros al sistema)\n5-Cerrar sesion");
+        System.out.println("Digite la opción a realizar:");
+        
+        
+        return scanner.nextInt();
     }
 }
