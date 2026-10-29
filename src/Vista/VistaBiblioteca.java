@@ -1,6 +1,7 @@
 package Vista;
 
 import Modelo.Biblioteca;
+import Modelo.Estudiante;
 import java.util.Scanner;
 
 public class VistaBiblioteca {
@@ -25,7 +26,9 @@ public class VistaBiblioteca {
         return scanner.nextLine();
     }
     
-    public void mostrarDetallesBiblioteca(Biblioteca biblioteca){
+    
+    
+    private void mostrarDetallesBiblioteca(Biblioteca biblioteca){
         System.out.println("=====INFORMACION GENERAL=====");
         System.out.println("BIBLIOTECA: "+biblioteca.getSede());
         System.out.println("CORREO: "+biblioteca.getCorreo());
@@ -33,4 +36,10 @@ public class VistaBiblioteca {
         System.out.println("=============================");
     }
     
+    public void menuEstudiante(Estudiante estudiante){
+        System.out.println("Bienvenido "+estudiante.getNombreCompleto());
+        System.out.println("Menu de prestamos.\n1-Realizar prestamo libro.\n2-Realizar prestamo cabina\n3-Realizar prestamo computadora.");
+        System.out.println("Digite la opción a realizar: ");
+        int opc = scanner.nextInt();
+    }
 }
