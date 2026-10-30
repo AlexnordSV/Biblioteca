@@ -23,7 +23,15 @@ public class Main {
         //String isbn, String titulo, String autor, int numPaginas, String codigo
         Libro libro1=new Libro("ISBN-0345-0945", "El Retrato de Dorian Gray", "Oscar Wilde", 100, "UESLIB-001");
         Libro libro2=new Libro("ISBN-0342-1234", "El Gran Gatsby", "Scott Fitzgerald", 120, "UESLIB-002");
-        
+        Libro libro3=new Libro("ISBN-1234-0724", "La Odisea", "Homero", 553, "UESLIB-003");
+        Libro libro4=new Libro("ISBN-9324-2348", "La Divina Comedia", "Dante Aligeri", 249, "UESLIB-004");
+        Libro libro5=new Libro("ISBN-1111-2332", "1984", "George Orwell", 211, "UESLIB-005");
+        Libro libro6=new Libro("ISBN-4500-5000", "La Metamorfosis", "Franz Kafka", 65, "UESLIB-006");
+        Libro libro7=new Libro("ISBN-0342-1234", "Crimen y Castigo", "Fiodor Dostoyevsky", 499, "UESLIB-007");
+        Libro libro8=new Libro("ISBN-0342-1234", "Administracion, una perspectiva global y globalizada", "Harol Kuntz", 788, "UESLIB-008");
+        Libro libro9=new Libro("ISBN-0342-1234", "Rayuelas", "Julio Cortazar", 653, "UESLIB-009");
+        Libro libro10=new Libro("ISBN-0342-1234", "Pensamiento Marxista e historia del comunismo en latinoamerica", "Antonio Gallardez", 269, "UESLIB-010");
+        Libro libro11=new Libro("ISBN-0342-1234", "Historia general de El Salvador", "Andres Aparicio", 192, "UESLIB-011");
         
         //String dui, String idTrabajador, String nombreCompleto, String correo, String usuario, String contrasenia, Biblioteca biblioteca
         
@@ -47,6 +55,16 @@ public class Main {
         
         bibliotecaFmp.agregarLibro(libro1);
         bibliotecaFmp.agregarLibro(libro2);
+        bibliotecaFmp.agregarLibro(libro3);
+        bibliotecaFmp.agregarLibro(libro4);
+        bibliotecaFmp.agregarLibro(libro5);
+        bibliotecaFmp.agregarLibro(libro6);
+        bibliotecaFmp.agregarLibro(libro7);
+        bibliotecaFmp.agregarLibro(libro8);
+        bibliotecaFmp.agregarLibro(libro9);
+        bibliotecaFmp.agregarLibro(libro10);
+        bibliotecaFmp.agregarLibro(libro11);
+        
         
         VistaBiblioteca vistaBiblioteca = new VistaBiblioteca(bibliotecaFmp);
         ControladorBiblioteca controladorBiblioteca = new ControladorBiblioteca(vistaBiblioteca, bibliotecaFmp);

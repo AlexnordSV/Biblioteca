@@ -20,6 +20,7 @@ public class Libro {
         this.numPaginas = numPaginas;
         this.codigo = codigo;
         this.disponible = true;
+        this.estado = "En estanteria";
     }
     
     public void actualizarDatos(){}
