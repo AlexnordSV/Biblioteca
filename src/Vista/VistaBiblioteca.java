@@ -3,7 +3,9 @@ package Vista;
 import Modelo.Biblioteca;
 import Modelo.Bibliotecario;
 import Modelo.Estudiante;
+import Modelo.Libro;
 import Modelo.PrestamoLibro;
+import java.util.List;
 import java.util.Scanner;
 
 public class VistaBiblioteca {
@@ -76,7 +78,31 @@ public class VistaBiblioteca {
     System.out.println("F. Límite:   " + prestamo.getFechaDevolucion() + " (3 días hábiles)");
     System.out.println("Estado:      " + prestamo.getEstadoPrestamo());
     System.out.println("========================================");
-}
+    }
+    
+    public int mostrarLibros(List<Libro> libros, int pActu, int totPag){
+        System.out.println("CATALOGO DE LIBROS (Pagina. "+pActu+"/"+totPag+")");
+        
+        if(libros.isEmpty()){
+            System.out.println("No hay libros registrados.");
+            return 2;
+        }
+        
+        for(int i=0; i<libros.size(); i++){
+            Libro lib= libros.get(i);
+            String estado = lib.isDisponible() ? "Disponible" : "Prestado";
+            System.out.println((i+1) + ". codigo: "+lib.getCodigo() + "| titulo: "+lib.getTitulo()+" estado: "+lib.getEstado());
+        }
+       
+        System.out.println("=================");
+        System.out.println("Opciones: [1] Siguiente pagina | [2] Pagina anterior | [3] Salir");
+        System.out.println("Digite una opcion ");
+        
+        int opc = scanner.nextInt();
+        scanner.nextLine();
+        return opc;
+    }
+    
     
     //De aqui para abajo es la vista del bibliotecario
     

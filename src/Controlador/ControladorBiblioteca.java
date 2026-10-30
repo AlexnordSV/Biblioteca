@@ -6,6 +6,7 @@ import Modelo.Estudiante;
 import Modelo.Libro;
 import Modelo.PrestamoLibro;
 import Vista.VistaBiblioteca;
+import java.util.List;
 
 public class ControladorBiblioteca {
     private VistaBiblioteca vistaBiblioteca;
@@ -86,6 +87,7 @@ public class ControladorBiblioteca {
                     break;
                 case 2:
                     vistaBiblioteca.mostrarMensaje("Desplegando estanterias... ");
+                    mostrarColeccionLibros();
                     break;
                 case 3:
                     vistaBiblioteca.mostrarMensaje("Consultando en el sistema si existe un prestamo activo...");
@@ -115,21 +117,74 @@ public class ControladorBiblioteca {
             return;
         }
         
+        if(!libro.isDisponible()){
+            vistaBiblioteca.mostrarMensaje("[Error] el libro "+libro.getTitulo()+" no esta disponible.");
+                    return;
+        }
+        
         vistaBiblioteca.mostrarMensaje("Libro encontrado, registrando: "+libro.getTitulo());
         String idPrestamo = "P-" + System.currentTimeMillis();
-        PrestamoLibro newPrestamo = new PrestamoLibro();
+        PrestamoLibro newPrestamo = new PrestamoLibro(idPrestamo, estudiante, libro);
         
         libro.setDisponible(false);
         vistaBiblioteca.mostrarComprobantePrestamo(newPrestamo);
-        
-        
     }
     
+    private void mostrarColeccionLibros() {
+        List<Libro> libros = biblioteca.obtenerLibros();
+        if (libros.isEmpty()) {
+            vistaBiblioteca.mostrarMensaje("No hay libros registrados");
+            return;
+        }
+
+        int libroCadaPagina = 5;
+        int totalPaginas = (int) Math.ceil((double) libros.size() / libroCadaPagina);
+        int paginaActual = 1;
+        int opcion = 0;
+
+        do {
+            // Calcular los índices de inicio y fin para los 5 libros de la página actual
+            int inicio = (paginaActual - 1) * libroCadaPagina;
+            int fin = Math.min(inicio + libroCadaPagina, libros.size());
+
+            // Obtener solo la sub-lista de esos 5 libros
+            List<Libro> librosPagina = libros.subList(inicio, fin);
+
+            // Mostrar la vista y capturar la acción del usuario
+            opcion = vistaBiblioteca.mostrarLibros(librosPagina, paginaActual, totalPaginas);
+
+            switch (opcion) {
+                case 1: // Siguiente página
+                    if (paginaActual < totalPaginas) {
+                        paginaActual++;
+                    } else {
+                        vistaBiblioteca.mostrarMensaje("\n[Aviso] Ya estás en la última página.");
+                    }
+                    break;
+
+                case 2: // Página anterior
+                    if (paginaActual > 1) {
+                        paginaActual--;
+                    } else {
+                        vistaBiblioteca.mostrarMensaje("\n[Aviso] Ya estás en la primera página.");
+                    }
+                    break;
+
+                case 3: // Salir
+                    vistaBiblioteca.mostrarMensaje("Saliendo del catálogo...");
+                    break;
+
+                default:
+                    vistaBiblioteca.mostrarMensaje("[Error] Opción no válida.");
+            }
+
+        } while (opcion != 3 && !libros.isEmpty());
+    }
+
     private void mostrarMenuBibliotecario(Bibliotecario bibliotecario){
-        vistaBiblioteca.menuBibliotecario(bibliotecario);
+    
     }
-    
-    
+
     public void controladorMostrarBiblioteca(){
 
     }

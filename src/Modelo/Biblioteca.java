@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -118,5 +120,11 @@ public class Biblioteca {
 
     public Libro buscarLibro(String codigo){
         return mapaLibros.get(codigo);
+    }
+    
+    public List<Libro> obtenerLibros(){
+        List<Libro> listaLibros = new ArrayList<>(mapaLibros.values());
+        Collections.shuffle(listaLibros);//Los saca de manera desordenada
+        return listaLibros;
     }
 }
