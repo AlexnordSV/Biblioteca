@@ -45,6 +45,9 @@ public class Main {
         bibliotecaFmp.registrarBibliotecario(bibliotecario1);
         bibliotecaFmp.registrarBibliotecario(bibliotecario2);
         
+        bibliotecaFmp.agregarLibro(libro1);
+        bibliotecaFmp.agregarLibro(libro2);
+        
         VistaBiblioteca vistaBiblioteca = new VistaBiblioteca(bibliotecaFmp);
         ControladorBiblioteca controladorBiblioteca = new ControladorBiblioteca(vistaBiblioteca, bibliotecaFmp);
         controladorBiblioteca.menuInicioSesion();

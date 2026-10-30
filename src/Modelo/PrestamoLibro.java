@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class PrestamoLibro {
@@ -16,6 +17,18 @@ public class PrestamoLibro {
     public void devolverLibro(){}
     
     //
+
+    public PrestamoLibro(String idPrestamoLibro, Estudiante estudiante, Libro libro) {
+        this.idPrestamoLibro = idPrestamoLibro;
+        this.estudiante = estudiante;
+        this.libro = libro;
+        this.fechaInicio = LocalDate.now();
+        this.fechaDevolucion = calcularFechaDevolucion(this.fechaInicio, 3);
+        this.devolucionReal = null; // Aún no se devuelve
+        this.estadoPrestamo = "Prestado";
+    }
+    
+    
 
     public PrestamoLibro() {
     }
@@ -76,5 +89,19 @@ public class PrestamoLibro {
         this.estudiante = estudiante;
     }
     
+    public static LocalDate calcularFechaDevolucion(LocalDate fechaInicio, int diasHabiles) {
+    LocalDate fechaActual = fechaInicio;
+    int diasAgregados = 0;
+    
+    while (diasAgregados < diasHabiles) {
+        fechaActual = fechaActual.plusDays(1);
+        // Si el día NO es sábado ni domingo, cuenta como hábil
+        if (fechaActual.getDayOfWeek() != DayOfWeek.SATURDAY && 
+            fechaActual.getDayOfWeek() != DayOfWeek.SUNDAY) {
+            diasAgregados++;
+        }
+    }
+    return fechaActual;
+}
     
 }

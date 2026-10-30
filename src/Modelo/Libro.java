@@ -10,6 +10,7 @@ public class Libro {
     private String codigo;
     private String estado;
     private Estanteria estanteria;
+    private boolean disponible;
     private List<PrestamoLibro> listaPrestamosLibro;
     
     public Libro(String isbn, String titulo, String autor, int numPaginas, String codigo){
@@ -18,6 +19,7 @@ public class Libro {
         this.autor = autor;
         this.numPaginas = numPaginas;
         this.codigo = codigo;
+        this.disponible = true;
     }
     
     public void actualizarDatos(){}
@@ -89,4 +91,13 @@ public class Libro {
     public void setListaPrestamosLibro(List<PrestamoLibro> listaPrestamosLibro) {
         this.listaPrestamosLibro = listaPrestamosLibro;
     }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+    
 }

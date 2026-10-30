@@ -3,6 +3,7 @@ package Vista;
 import Modelo.Biblioteca;
 import Modelo.Bibliotecario;
 import Modelo.Estudiante;
+import Modelo.PrestamoLibro;
 import java.util.Scanner;
 
 public class VistaBiblioteca {
@@ -40,8 +41,44 @@ public class VistaBiblioteca {
         System.out.println("Bienvenido "+estudiante.getNombreCompleto());
         System.out.println("Menu de prestamos.\n1. Menu prestamo libro.\n2. Menu prestamo cabina\n3. Menu prestamo computadora.\n4. Cerrar sesion");
         System.out.println("Digite la opción a realizar: ");
-        return scanner.nextInt();
+        
+        int opc=scanner.nextInt();
+        scanner.nextLine();
+        return opc;
     }
+    
+    public int menuPrestamoLibro(){
+        System.out.println("Apartado de prestamo libros");
+        System.out.println("1. Realizar prestamo libro.\n2. Ver coleccion de libros"
+                + "\n3. Ver prestamos actuales\n4. Devolver libro\n5. Regresar al menu anterior");
+        System.out.println("DIgite la opción a realizar: ");
+        
+        int opc=scanner.nextInt();
+        scanner.nextLine();
+        return opc;
+    }
+    
+    public String realizarPrestamoLibro(){
+        System.out.println("Ingrese el código UESLIB del libro para realizar el prestamo");
+        return scanner.nextLine();
+    }
+    
+    public void mostrarComprobantePrestamo(PrestamoLibro prestamo) {
+    System.out.println("\n========================================");
+    System.out.println("          COMPROBANTE DE PRÉSTAMO       ");
+    System.out.println("========================================");
+    System.out.println("ID Préstamo: " + prestamo.getIdPrestamoLibro());
+    System.out.println("Estudiante:  " + prestamo.getEstudiante().getNombreCompleto());
+    System.out.println("Carnet:      " + prestamo.getEstudiante().getCarnet());
+    System.out.println("Libro:       " + prestamo.getLibro().getTitulo());
+    System.out.println("Código UES:  " + prestamo.getLibro().getCodigo());
+    System.out.println("F. Inicio:   " + prestamo.getFechaInicio());
+    System.out.println("F. Límite:   " + prestamo.getFechaDevolucion() + " (3 días hábiles)");
+    System.out.println("Estado:      " + prestamo.getEstadoPrestamo());
+    System.out.println("========================================");
+}
+    
+    //De aqui para abajo es la vista del bibliotecario
     
     public int menuBibliotecario(Bibliotecario bibliotecario){
         System.out.println("Bienvenido: "+bibliotecario.getNombreCompleto()+" ("+bibliotecario.getUsuario()+")");
@@ -50,7 +87,8 @@ public class VistaBiblioteca {
                 + "\n 4. Libros (modificar, eliminar, mover de estanterias y añadir libros al sistema)\n5-Cerrar sesion");
         System.out.println("Digite la opción a realizar:");
         
-        
-        return scanner.nextInt();
+        int opc=scanner.nextInt();
+        scanner.nextLine();
+        return opc;
     }
 }

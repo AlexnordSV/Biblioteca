@@ -12,6 +12,7 @@ public class Biblioteca {
     private List<Computadora> listaComputadoras;
     private HashMap<String, Estudiante> mapaEstudiantes = new HashMap<>();
     private HashMap<String, Bibliotecario> mapaBibliotecarios = new HashMap<>();
+    private HashMap<String, Libro> mapaLibros = new HashMap<>();
         
     public void mostrarEmpleados(){}
     public void mostrarComputadoras(){}
@@ -87,8 +88,18 @@ public class Biblioteca {
         this.mapaEstudiantes = mapaEstudiantes;
     }
     //
-
-
+    public void agregarEstudiante(Estudiante estudiante) {
+        mapaEstudiantes.put(estudiante.getCarnet(), estudiante);
+    }
+    
+    public void registrarBibliotecario(Bibliotecario bibliotecario){
+        mapaBibliotecarios.put(bibliotecario.getCorreo(), bibliotecario);
+    }
+    
+    public void agregarLibro(Libro libro){
+        mapaLibros.put(libro.getCodigo(), libro);
+    }
+    
     public Estudiante validarLoginEstudiante(String carnet, String contrasenia) {
         Estudiante estudiante = mapaEstudiantes.get(carnet);
         if (estudiante != null && estudiante.getContrasenia().equals(contrasenia)) {
@@ -105,11 +116,7 @@ public class Biblioteca {
         return null;
     }
 
-    public void agregarEstudiante(Estudiante estudiante) {
-        mapaEstudiantes.put(estudiante.getCarnet(), estudiante);
-    }
-    
-    public void registrarBibliotecario(Bibliotecario bibliotecario){
-        mapaBibliotecarios.put(bibliotecario.getCorreo(), bibliotecario);
+    public Libro buscarLibro(String codigo){
+        return mapaLibros.get(codigo);
     }
 }
