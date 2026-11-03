@@ -1,5 +1,6 @@
 package Modelo;
 
+import Modelo.PrestamoLibro;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +16,8 @@ public class Biblioteca {
     private HashMap<String, Estudiante> mapaEstudiantes = new HashMap<>();
     private HashMap<String, Bibliotecario> mapaBibliotecarios = new HashMap<>();
     private HashMap<String, Libro> mapaLibros = new HashMap<>();
-        
+    private HashMap<String, PrestamoLibro> mapaPrestamoLibro = new HashMap<>();
+    
     public void mostrarEmpleados(){}
     public void mostrarComputadoras(){}
     public void mostrarCabinas(){}
@@ -101,6 +103,20 @@ public class Biblioteca {
     public void agregarLibro(Libro libro){
         mapaLibros.put(libro.getCodigo(), libro);
     }
+    
+    public void agregarPrestamoLibro(PrestamoLibro prestamo){
+        mapaPrestamoLibro.put(prestamo.getIdPrestamoLibro(), prestamo);
+    }
+    
+    public PrestamoLibro prestamoActivoLibro(String carnet) {
+        for (PrestamoLibro p : mapaPrestamoLibro.values()) {
+            if (p.getEstudiante().getCarnet().equalsIgnoreCase(carnet)
+                    && p.getEstadoPrestamo().equalsIgnoreCase("Prestado")) {
+                return p;
+            }
+        }
+        return null;
+    }    
     
     public Estudiante validarLoginEstudiante(String carnet, String contrasenia) {
         Estudiante estudiante = mapaEstudiantes.get(carnet);

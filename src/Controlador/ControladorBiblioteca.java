@@ -6,6 +6,8 @@ import Modelo.Estudiante;
 import Modelo.Libro;
 import Modelo.PrestamoLibro;
 import Vista.VistaBiblioteca;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ControladorBiblioteca {
@@ -58,6 +60,7 @@ public class ControladorBiblioteca {
                     break;
                 case 2:
                     vistaBiblioteca.mostrarMensaje("\nAccediendo al menu de prestamos de cabinas.");
+                    mostrarMenuCabinas(estudiante);
                     break;
                 case 3:
                     vistaBiblioteca.mostrarMensaje("\nAccediendo al menu de prestamo de computadoras.");
@@ -91,9 +94,17 @@ public class ControladorBiblioteca {
                     break;
                 case 3:
                     vistaBiblioteca.mostrarMensaje("Consultando en el sistema si existe un prestamo activo...");
+                    PrestamoLibro actual = biblioteca.prestamoActivoLibro(estudiante.getCarnet());
+                    if(actual != null){
+                        vistaBiblioteca.mostrarComprobantePrestamo(actual);
+                    }else{
+                        vistaBiblioteca.mostrarMensaje("Sin prestamos activos!!");
+                    }
+                    
                     break;
                 case 4:
                     vistaBiblioteca.mostrarMensaje("Ejecutando la devolucion de libro...");
+                    devolverLibro(estudiante);
                     break;
                 case 5: 
                     vistaBiblioteca.mostrarMensaje("Volviendo al menu anterior...");
@@ -108,8 +119,18 @@ public class ControladorBiblioteca {
     }
     
     private void prestamoLibro(Estudiante estudiante){
-        String codigo = vistaBiblioteca.realizarPrestamoLibro();
         
+        PrestamoLibro prestamoActivo = biblioteca.prestamoActivoLibro(estudiante.getCarnet());
+        if(prestamoActivo != null){
+            vistaBiblioteca.mostrarMensaje("[Error] existe prestamo activo");
+        }
+        if(estudiante.estaBloqueado()){
+            vistaBiblioteca.mostrarMensaje("[Error] estudiante con bloqueo por sanción en retraso de prestamo"
+                    + "puede realizar un nuevo prestamo a partir de la siguiente fecha:  "+estudiante.getFechaFinBloqueo());
+            return;
+        }
+        
+        String codigo = vistaBiblioteca.realizarPrestamoLibro();
         Libro libro = biblioteca.buscarLibro(codigo);
         
         if(libro == null){
@@ -127,6 +148,8 @@ public class ControladorBiblioteca {
         PrestamoLibro newPrestamo = new PrestamoLibro(idPrestamo, estudiante, libro);
         
         libro.setDisponible(false);
+        libro.setEstado("Prestado");
+        biblioteca.agregarPrestamoLibro(newPrestamo);
         vistaBiblioteca.mostrarComprobantePrestamo(newPrestamo);
     }
     
@@ -180,7 +203,38 @@ public class ControladorBiblioteca {
 
         } while (opcion != 3 && !libros.isEmpty());
     }
+    
+    private void devolverLibro(Estudiante estudiante){
+        PrestamoLibro activo = biblioteca.prestamoActivoLibro(estudiante.getCarnet());
+        
+        if(activo == null){
+            vistaBiblioteca.mostrarMensaje("[Error] no hay ningun prestamo activo");
+            return;
+        }
+        
+        LocalDate hoy = LocalDate.now();
+        activo.setDevolucionReal(hoy);
+        activo.setEstadoPrestamo("Devuelto");
+        
+        Libro libro = activo.getLibro();
+        libro.setDisponible(true);
+        
+        long diasRetrasado = 0;
+        if(hoy.isAfter(activo.getFechaDevolucion())){
+            diasRetrasado = ChronoUnit.DAYS.between(activo.getFechaDevolucion(), hoy);
+            
+            LocalDate finBloqueo = hoy.plusDays(diasRetrasado);
+            estudiante.setFechaFinBloqueo(finBloqueo);
+        }else{
+            estudiante.setFechaFinBloqueo(hoy);
+        }
+        vistaBiblioteca.comprobanteDevolucion(activo, diasRetrasado, hoy);
+    }
 
+    private void mostrarMenuCabinas(Estudiante estudiante){
+        
+    }
+    
     private void mostrarMenuBibliotecario(Bibliotecario bibliotecario){
     
     }

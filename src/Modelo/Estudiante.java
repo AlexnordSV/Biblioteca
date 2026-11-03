@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Estudiante {
@@ -10,6 +11,7 @@ public class Estudiante {
     private String contrasenia;
     private boolean prestamoActivo;
     private Biblioteca biblioteca;
+    private LocalDate fechaFinBloqueo = null;
     private List<PrestamoLibro> listaPrestamosLibro;
     private List<PrestamoCabina> listaPrestamosCabina;
     private List<PrestamoComputadora> listaPrestamosComputadora;
@@ -17,6 +19,12 @@ public class Estudiante {
     public void consultarEstado(){}
     public void realizarPrestamo(){}
     public void verPrestamo(){}
+    public boolean estaBloqueado(){
+     if(fechaFinBloqueo == null){
+         return false;
+     }   
+     return LocalDate.now().isBefore(fechaFinBloqueo);
+    }
     //
     public Estudiante() {
     }
@@ -79,6 +87,24 @@ public class Estudiante {
         this.prestamoActivo = prestamoActivo;
     }
 
+    public Biblioteca getBiblioteca() {
+        return biblioteca;
+    }
+
+    public void setBiblioteca(Biblioteca biblioteca) {
+        this.biblioteca = biblioteca;
+    }
+
+    public LocalDate getFechaFinBloqueo() {
+        return fechaFinBloqueo;
+    }
+
+    public void setFechaFinBloqueo(LocalDate fechaFinBloqueo) {
+        this.fechaFinBloqueo = fechaFinBloqueo;
+    }
+    
+    
+    
     public List<PrestamoLibro> getListaPrestamosLibro() {
         return listaPrestamosLibro;
     }

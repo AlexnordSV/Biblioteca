@@ -42,7 +42,7 @@ public class Main {
         Estudiante estudiante2=new Estudiante("II26022", "Juan Carlos Ibarrete Ibarrete", "Licenciatura en idiomas", "Carlitos1234", bibliotecaFmp);
         Estudiante estudiante3=new Estudiante("CT26032", "Juan Gerson Cruz Torre", "Licenciatura en Adminstracion de Empresas", "JuanCarlos", bibliotecaFmp);
         Estudiante estudiante4=new Estudiante("MA26001", "Walter Ivan Monge Avila", "Ingenieria Agronomica", "monge1234", bibliotecaFmp);
-        Estudiante estudiante5=new Estudiante("GH27013", "Giselle Noemy Garcia Hernandez", "Ingenieria Agroindustrial", "soyUes_", bibliotecaFmp);        
+        Estudiante estudiante5=new Estudiante("GH27013", "GiseCodigolle Noemy Garcia Hernandez", "Ingenieria Agroindustrial", "soyUes_", bibliotecaFmp);        
 
         bibliotecaFmp.agregarEstudiante(estudiante1);
         bibliotecaFmp.agregarEstudiante(estudiante2);

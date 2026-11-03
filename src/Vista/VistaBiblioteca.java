@@ -5,6 +5,7 @@ import Modelo.Bibliotecario;
 import Modelo.Estudiante;
 import Modelo.Libro;
 import Modelo.PrestamoLibro;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,8 +68,7 @@ public class VistaBiblioteca {
     
     public void mostrarComprobantePrestamo(PrestamoLibro prestamo) {
     System.out.println("\n========================================");
-    System.out.println("          COMPROBANTE DE PRÉSTAMO       ");
-    System.out.println("========================================");
+    System.out.println("          COMPROBANTE DE PRÉSTAMO       \n");
     System.out.println("ID Préstamo: " + prestamo.getIdPrestamoLibro());
     System.out.println("Estudiante:  " + prestamo.getEstudiante().getNombreCompleto());
     System.out.println("Carnet:      " + prestamo.getEstudiante().getCarnet());
@@ -80,6 +80,25 @@ public class VistaBiblioteca {
     System.out.println("========================================");
     }
     
+    public void comprobanteDevolucion(PrestamoLibro prestamo, long dias, LocalDate fin) {
+        System.out.println("\n========================================");
+        System.out.println("       COMPROBANTE DE DEVOLUCIÓN        \n");
+        System.out.println("ID Préstamo:   " + prestamo.getIdPrestamoLibro());
+        System.out.println("Estudiante:    " + prestamo.getEstudiante().getNombreCompleto());
+        System.out.println("Libro Devuelto:" + prestamo.getLibro().getTitulo() + " | Código: " + prestamo.getLibro().getCodigo());
+        System.out.println("F. Límite:     " + prestamo.getFechaDevolucion());
+        System.out.println("F. Devolución: " + prestamo.getDevolucionReal());
+        System.out.println("----------------------------------------");
+        if (dias > 0) {
+            System.out.println("[SANCIÓN APLICADA]");
+            System.out.println("Días de retraso: " + dias);
+            System.out.println("Estás bloqueado para nuevos préstamos hasta: " + fin);
+        } else {
+            System.out.println("Prestamo realizado con exito!");
+        }
+        System.out.println("========================================");
+    }
+
     public int mostrarLibros(List<Libro> libros, int pActu, int totPag){
         System.out.println("CATALOGO DE LIBROS (Pagina. "+pActu+"/"+totPag+")");
         
@@ -91,7 +110,7 @@ public class VistaBiblioteca {
         for(int i=0; i<libros.size(); i++){
             Libro lib= libros.get(i);
             String estado = lib.isDisponible() ? "Disponible" : "Prestado";
-            System.out.println((i+1) + ". codigo: "+lib.getCodigo() + "| titulo: "+lib.getTitulo()+" estado: "+lib.getEstado());
+            System.out.println((i+1) + ". CODIGO: "+lib.getCodigo() + " | TITULO: "+lib.getTitulo()+" | ESTADO: "+lib.getEstado());
         }
        
         System.out.println("=================");
