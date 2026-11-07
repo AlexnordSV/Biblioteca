@@ -13,7 +13,7 @@ public class Estudiante {
     private Biblioteca biblioteca;
     private LocalDate fechaFinBloqueo = null;
     private List<PrestamoLibro> listaPrestamosLibro;
-    private List<PrestamoCabina> listaPrestamosCabina;
+    private List<ReservaCabina> listaPrestamosCabina;
     private List<PrestamoComputadora> listaPrestamosComputadora;
     
     public void consultarEstado(){}
@@ -113,11 +113,11 @@ public class Estudiante {
         this.listaPrestamosLibro = listaPrestamosLibro;
     }
 
-    public List<PrestamoCabina> getListaPrestamosCabina() {
+    public List<ReservaCabina> getListaPrestamosCabina() {
         return listaPrestamosCabina;
     }
 
-    public void setListaPrestamosCabina(List<PrestamoCabina> listaPrestamosCabina) {
+    public void setListaPrestamosCabina(List<ReservaCabina> listaPrestamosCabina) {
         this.listaPrestamosCabina = listaPrestamosCabina;
     }
 

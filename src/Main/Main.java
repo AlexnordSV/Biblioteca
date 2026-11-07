@@ -3,6 +3,7 @@ package Main;
 import Modelo.Biblioteca;
 import Controlador.ControladorBiblioteca;
 import Modelo.Bibliotecario;
+import Modelo.Cabina;
 import Modelo.Estanteria;
 import Modelo.Estudiante;
 import Modelo.Libro;
@@ -14,6 +15,9 @@ public class Main {
         bibliotecaFmp.setSede("Biblioteca UES-FMP");
         bibliotecaFmp.setTelefono("6700-7090"); 
         bibliotecaFmp.setCorreo("bibliotecaFMP@hotmail.com");
+        
+        Cabina cabina1 = new Cabina("CAB001", "Cabina 1", 6);
+        Cabina cabina2 = new Cabina("CAB002", "Cabina 2", 6);
         
         //String idEstanteria, String catalogo, int capacidad, Biblioteca biblioteca
         Estanteria estanteria1=new Estanteria("E001", "Clasicos", 100, bibliotecaFmp);
@@ -65,6 +69,8 @@ public class Main {
         bibliotecaFmp.agregarLibro(libro10);
         bibliotecaFmp.agregarLibro(libro11);
         
+        bibliotecaFmp.agregarCabina(cabina1);
+        bibliotecaFmp.agregarCabina(cabina2);
         
         VistaBiblioteca vistaBiblioteca = new VistaBiblioteca(bibliotecaFmp);
         ControladorBiblioteca controladorBiblioteca = new ControladorBiblioteca(vistaBiblioteca, bibliotecaFmp);

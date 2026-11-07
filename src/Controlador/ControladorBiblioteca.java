@@ -2,11 +2,14 @@ package Controlador;
 
 import Modelo.Biblioteca;
 import Modelo.Bibliotecario;
+import Modelo.Cabina;
 import Modelo.Estudiante;
 import Modelo.Libro;
 import Modelo.PrestamoLibro;
+import Modelo.ReservaCabina;
 import Vista.VistaBiblioteca;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -49,6 +52,8 @@ public class ControladorBiblioteca {
 
     }
     
+    //Modulo estudiante
+    
     private void mostrarMenuEstudiante(Estudiante estudiante){
         int opcion=0;
         do{
@@ -59,7 +64,7 @@ public class ControladorBiblioteca {
                     mostrarMenuLibros(estudiante);
                     break;
                 case 2:
-                    vistaBiblioteca.mostrarMensaje("\nAccediendo al menu de prestamos de cabinas.");
+                    vistaBiblioteca.mostrarMensaje("\nAccediendo al menu de reserva de cabinas.");
                     mostrarMenuCabinas(estudiante);
                     break;
                 case 3:
@@ -117,6 +122,9 @@ public class ControladorBiblioteca {
             }
         }while(opcion!=5);
     }
+    
+    
+    //modulo prestamo libro
     
     private void prestamoLibro(Estudiante estudiante){
         
@@ -230,10 +238,77 @@ public class ControladorBiblioteca {
         }
         vistaBiblioteca.comprobanteDevolucion(activo, diasRetrasado, hoy);
     }
+    
+    //Modulo de cabina
+    private void mostrarMenuCabinas(Estudiante estudiante) {
+        int opc = 0;
+        do {
+            opc = vistaBiblioteca.menuReservaCabina(); 
+            switch (opc) {
+                case 1:
+                    vistaBiblioteca.mostrarMensaje("Cargando la interfaz de reserva de cabina");
+                    realizarReservaCabina(estudiante);
+                    break;
+                case 2:
+                    vistaBiblioteca.mostrarMensaje("Obteniendo matriz de horarios...");
 
-    private void mostrarMenuCabinas(Estudiante estudiante){
-        
+                    break;
+                case 3:
+                    vistaBiblioteca.mostrarMensaje("Obteniendo préstamo actual...");
+                    reservaActualCabina(estudiante); 
+                    break;
+                case 4:
+                    vistaBiblioteca.mostrarMensaje("Volviendo al menú anterior...");
+                    break; 
+                default:
+                    vistaBiblioteca.mostrarMensaje("[Error] opción no válida, vuelva a intentar.");
+                    break;
+            }
+        } while (opc != 4);
     }
+
+    
+    private void realizarReservaCabina(Estudiante estudiante){
+        String idCabina = vistaBiblioteca.pedirIdCabina();
+        Cabina cabina = biblioteca.buscarCabina(idCabina);
+    
+        if (cabina == null){
+            vistaBiblioteca.mostrarMensaje("[Error], cabina no existe.");
+            return;
+        }
+        
+        if(!cabina.isDisponible()){
+            vistaBiblioteca.mostrarMensaje("[Error] la cabina no esta disponible");
+            return;
+        }
+        
+        int hora = vistaBiblioteca.pedirHoraCabina();
+        if(hora <8 || hora >16){
+            vistaBiblioteca.mostrarMensaje("[Error] su hora esta fuera del horario de 8:00-16:00");
+            return;
+        }
+        
+        String id = "RC-"+System.currentTimeMillis();
+        LocalDate hoy = LocalDate.now();
+        LocalTime horaInicio = LocalTime.of(hora, 0);
+        LocalTime horaFin = horaInicio.plusHours(1);
+        
+        ReservaCabina reserva = new ReservaCabina(id, hoy, horaInicio, horaFin, true, cabina, estudiante);
+        cabina.setDisponible(false);
+        
+        biblioteca.agregarReservaCabina(reserva);
+        vistaBiblioteca.mostrarComprobanteCabina(reserva);
+    }
+    
+    private void reservaActualCabina(Estudiante estudiante) {
+        ReservaCabina reserva = biblioteca.reservaActivaCabina(estudiante.getCarnet());
+
+        if (reserva != null) {
+            vistaBiblioteca.mostrarComprobanteCabina(reserva);
+        } else {
+            vistaBiblioteca.mostrarMensaje("No tienes ninguna reserva de cabina activa en este momento.");
+        }
+    }    
     
     private void mostrarMenuBibliotecario(Bibliotecario bibliotecario){
     

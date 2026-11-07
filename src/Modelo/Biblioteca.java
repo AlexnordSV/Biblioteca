@@ -11,13 +11,13 @@ public class Biblioteca {
     private String telefono;
     private String correo;
     private List<Estanteria> listaEstanteria;
-    private List<Cabina> listaCabinas;
+    private List<Cabina> listaCabinas = new ArrayList<>();
     private List<Computadora> listaComputadoras;
     private HashMap<String, Estudiante> mapaEstudiantes = new HashMap<>();
     private HashMap<String, Bibliotecario> mapaBibliotecarios = new HashMap<>();
     private HashMap<String, Libro> mapaLibros = new HashMap<>();
     private HashMap<String, PrestamoLibro> mapaPrestamoLibro = new HashMap<>();
-    
+    private HashMap<String, ReservaCabina> mapaReservaCabina = new HashMap<>();
     public void mostrarEmpleados(){}
     public void mostrarComputadoras(){}
     public void mostrarCabinas(){}
@@ -92,6 +92,8 @@ public class Biblioteca {
         this.mapaEstudiantes = mapaEstudiantes;
     }
     //
+    //
+    //
     public void agregarEstudiante(Estudiante estudiante) {
         mapaEstudiantes.put(estudiante.getCarnet(), estudiante);
     }
@@ -108,6 +110,14 @@ public class Biblioteca {
         mapaPrestamoLibro.put(prestamo.getIdPrestamoLibro(), prestamo);
     }
     
+    public void agregarReservaCabina(ReservaCabina reserva){
+        mapaReservaCabina.put(reserva.getIdPrestamoCabina(), reserva);
+    }
+    
+    public void agregarCabina(Cabina cabina){
+        this.listaCabinas.add(cabina);
+    }
+    
     public PrestamoLibro prestamoActivoLibro(String carnet) {
         for (PrestamoLibro p : mapaPrestamoLibro.values()) {
             if (p.getEstudiante().getCarnet().equalsIgnoreCase(carnet)
@@ -117,6 +127,15 @@ public class Biblioteca {
         }
         return null;
     }    
+    
+    public ReservaCabina reservaActivaCabina(String carnet) {
+        for (ReservaCabina r : mapaReservaCabina.values()) {
+            if (r.getEstudiante().getCarnet().equalsIgnoreCase(carnet) && r.isActivo()) {
+                return r;
+            }
+        }
+        return null;
+    }
     
     public Estudiante validarLoginEstudiante(String carnet, String contrasenia) {
         Estudiante estudiante = mapaEstudiantes.get(carnet);
@@ -142,5 +161,13 @@ public class Biblioteca {
         List<Libro> listaLibros = new ArrayList<>(mapaLibros.values());
         Collections.shuffle(listaLibros);//Los saca de manera desordenada
         return listaLibros;
+    }
+    
+    public Cabina buscarCabina(String idCabina){
+        for(Cabina cabina : this.listaCabinas){
+            if(cabina.getIdCabina().toUpperCase().equals(idCabina.toUpperCase()))
+                return cabina;
+        }
+        return null;
     }
 }

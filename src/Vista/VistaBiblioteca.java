@@ -5,7 +5,9 @@ import Modelo.Bibliotecario;
 import Modelo.Estudiante;
 import Modelo.Libro;
 import Modelo.PrestamoLibro;
+import Modelo.ReservaCabina;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Scanner;
 
@@ -122,7 +124,45 @@ public class VistaBiblioteca {
         return opc;
     }
     
-    
+    //Vista prestamo cabina
+     public int menuReservaCabina() {
+        System.out.println("Apartado de prestamo libros");
+        System.out.println("1. Realizar reserva de cabina.\n2. Ver horario semanal y disponibilidad de cabinas"
+                + "\n3. Ver reserva actual\n4. Regresar al menu anterior");
+        System.out.println("DIgite la opción a realizar: ");
+
+        int opc = scanner.nextInt();
+        scanner.nextLine();
+        return opc;
+    }
+     
+     public String pedirIdCabina(){
+         System.out.println("Ingrese el id de la cabina a reservar: ");
+         return scanner.nextLine();
+     }
+     
+    public int pedirHoraCabina() {
+        System.out.println("¿A qué hora desea iniciar su reserva?");
+        System.out.println("Nota: Las reservas son de 1 hora exacta (Ej: ingrese 14 para las 2:00 PM).");
+        System.out.print("Digite solo la hora (formato 24h, ej. 8 a 17): ");
+ 
+        int hora = scanner.nextInt();
+        scanner.nextLine(); 
+        return hora;
+    }
+        
+    public void mostrarComprobanteCabina(ReservaCabina reserva) {
+        System.out.println("========================================");
+        System.out.println("      COMPROBANTE DE RESERVA CABINA     \n");
+        System.out.println("ID Reserva:  " + reserva.getIdPrestamoCabina());
+        System.out.println("Estudiante:  " + reserva.getEstudiante().getNombreCompleto());
+        System.out.println("Carnet:      " + reserva.getEstudiante().getCarnet());
+        System.out.println("Cabina:      " + reserva.getCabina().getNombre() + " (" + reserva.getCabina().getIdCabina() + ")");
+        System.out.println("Fecha:       " + reserva.getFecha());
+        System.out.println("Horario:     " + reserva.getHoraInicio() + " - " + reserva.getHoraFin() + " hrs");
+        System.out.println("Estado:      " + (reserva.isActivo() ? "Activa" : "Finalizada"));
+        System.out.println("========================================\n");
+    }
     //De aqui para abajo es la vista del bibliotecario
     
     public int menuBibliotecario(Bibliotecario bibliotecario){

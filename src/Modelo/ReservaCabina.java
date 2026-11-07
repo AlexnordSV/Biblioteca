@@ -3,7 +3,7 @@ package Modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class PrestamoCabina {
+public class ReservaCabina {
     private String idPrestamoCabina;
     private LocalDate fecha;
     private LocalTime horaInicio;
@@ -14,7 +14,17 @@ public class PrestamoCabina {
     
     //
 
-    public PrestamoCabina() {
+    public ReservaCabina(String idPrestamoCabina, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, boolean activo, Cabina cabina, Estudiante estudiante) {
+        this.idPrestamoCabina = idPrestamoCabina;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.activo = activo;
+        this.cabina = cabina;
+        this.estudiante = estudiante;
+    }
+    
+    public ReservaCabina() {
     }
 
     public String getIdPrestamoCabina() {
