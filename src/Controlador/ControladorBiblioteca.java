@@ -259,7 +259,9 @@ public class ControladorBiblioteca {
                         break;
                     }
                     
-                    String [][] matrizHoraria = biblioteca.matrizHorarioCabina(cabinaConsulta);
+                    int diaConsulta = vistaBiblioteca.pedirDiaSemana();
+                    
+                    String [][] matrizHoraria = biblioteca.matrizHorarioCabina(cabinaConsulta, diaConsulta);
                     vistaBiblioteca.matrizCabina(cabinaConsulta, matrizHoraria);
                     
                     break;
@@ -309,7 +311,22 @@ public class ControladorBiblioteca {
         String id = "RC-"+System.currentTimeMillis();
         LocalDate hoy = LocalDate.now();
         int diaActual = hoy.getDayOfWeek().getValue();
-        LocalDate fechaReserva = hoy.plusDays(opcionDia - diaActual);
+        if(diaActual > 5){
+            diaActual = 5;
+        }
+        
+        int diasDiferencia = (opcionDia - diaActual);
+        
+        if(diasDiferencia <= 0){
+            diasDiferencia +=7;
+        }
+        
+        if(diasDiferencia > 7){
+            vistaBiblioteca.mostrarMensaje("[Error] solo se pueden realizar reservas con un maximo de 7 dias de anticipacion ");
+            return;
+        }
+        
+        LocalDate fechaReserva = hoy.plusDays(diasDiferencia);
         
         LocalTime horaInicio = LocalTime.of(hora, 0);
         LocalTime horaFin = horaInicio.plusHours(1);

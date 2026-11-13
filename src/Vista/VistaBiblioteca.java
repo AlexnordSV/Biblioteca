@@ -34,6 +34,22 @@ public class VistaBiblioteca {
         return scanner.nextLine();
     }
     
+// Método auxiliar reutilizable para pedir cualquier entero con validación
+public int validarEntero(String mensaje, String mensajeError) {
+        int numero = -1;
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = scanner.nextLine();
+            try {
+                numero = Integer.parseInt(entrada.trim());
+                break; // Si es un número válido, rompemos el ciclo y lo retornamos
+            } catch (NumberFormatException e) {
+                System.out.println("[Error] " + mensajeError);
+            }
+        }
+        return numero;
+    }    
+    
     
     private void mostrarDetallesBiblioteca(Biblioteca biblioteca){
         System.out.println("=====INFORMACION GENERAL=====");
@@ -127,7 +143,7 @@ public class VistaBiblioteca {
     
     //Vista prestamo cabina
      public int menuReservaCabina() {
-        System.out.println("Apartado de prestamo libros");
+        System.out.println("\n---Apartado de reserva de cabinas---\n");
         System.out.println("1. Realizar reserva de cabina.\n2. Ver horario semanal y disponibilidad de cabinas"
                 + "\n3. Ver reserva actual\n4. Regresar al menu anterior");
         System.out.println("DIgite la opción a realizar: ");

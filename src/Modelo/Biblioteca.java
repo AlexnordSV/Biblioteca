@@ -1,6 +1,7 @@
 package Modelo;
 
 import Modelo.PrestamoLibro;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -171,7 +172,7 @@ public class Biblioteca {
         return null;
     }
     
-    public String [][] matrizHorarioCabina(Cabina cabina){
+    public String [][] matrizHorarioCabina(Cabina cabina, int diaSeleccion){
         String[][] matriz = new String[8][5];
         
         for (int i = 0; i < 8; i++) {
@@ -180,17 +181,37 @@ public class Biblioteca {
             }
         }
         
-        for(ReservaCabina reserva : mapaReservaCabina.values()){
-            if(reserva.isActivo() && reserva.getCabina().getIdCabina().equalsIgnoreCase(cabina.getIdCabina())){
-                
-                int horaInicio = reserva.getHoraInicio().getHour();
-                int fila = horaInicio-8;
-                
-                java.time.DayOfWeek diaSemana = reserva.getFecha().getDayOfWeek();
-                int columna = diaSemana.getValue() - 1;
-                
-                if(fila >= 0 && fila<8 && columna >=0 && columna < 5){
-                    matriz[fila][columna] = "Ocupado/Reservada";
+        LocalDate hoy = LocalDate.now();
+        int diaActual = hoy.getDayOfWeek().getValue();
+        if(diaActual > 5){
+            diaActual = 5;
+        }
+        
+        int diferencia = diaSeleccion - diaActual;
+        if(diferencia <= 0){
+            diferencia +=7;
+        }
+        
+        LocalDate fechaReal = hoy.plusDays(diferencia);
+        
+        java.time.temporal.WeekFields semana = java.time.temporal.WeekFields.of(java.util.Locale.getDefault());
+        int semanaConsultada = fechaReal.get(semana.weekOfWeekBasedYear());
+        
+        for (ReservaCabina reserva : mapaReservaCabina.values()) {
+            if (reserva.isActivo() && reserva.getCabina().getIdCabina().equalsIgnoreCase(cabina.getIdCabina())) {
+
+                int semanaReserva = reserva.getFecha().get(semana.weekOfWeekBasedYear());
+
+                if (semanaReserva == semanaConsultada) {
+                    int horaInicio = reserva.getHoraInicio().getHour();
+                    int fila = horaInicio - 8;
+
+                    java.time.DayOfWeek diaSemana = reserva.getFecha().getDayOfWeek();
+                    int columna = diaSemana.getValue() - 1;
+
+                    if (fila >= 0 && fila < 8 && columna >= 0 && columna < 5) {
+                        matriz[fila][columna] = "Ocupado/Reservada";
+                    }
                 }
             }
         }
