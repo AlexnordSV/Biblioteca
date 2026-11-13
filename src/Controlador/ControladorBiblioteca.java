@@ -251,7 +251,17 @@ public class ControladorBiblioteca {
                     break;
                 case 2:
                     vistaBiblioteca.mostrarMensaje("Obteniendo matriz de horarios...");
+                    String id = vistaBiblioteca.pedirIdCabina();
+                    Cabina cabinaConsulta = biblioteca.buscarCabina(id);
 
+                    if(cabinaConsulta == null){
+                        vistaBiblioteca.mostrarMensaje("[Error] La cabina ingresada no existe.");
+                        break;
+                    }
+                    
+                    String [][] matrizHoraria = biblioteca.matrizHorarioCabina(cabinaConsulta);
+                    vistaBiblioteca.matrizCabina(cabinaConsulta, matrizHoraria);
+                    
                     break;
                 case 3:
                     vistaBiblioteca.mostrarMensaje("Obteniendo préstamo actual...");
@@ -269,6 +279,8 @@ public class ControladorBiblioteca {
 
     
     private void realizarReservaCabina(Estudiante estudiante){
+        vistaBiblioteca.mostrarListaCabinas(biblioteca.getListaCabinas());
+        
         String idCabina = vistaBiblioteca.pedirIdCabina();
         Cabina cabina = biblioteca.buscarCabina(idCabina);
     
@@ -282,20 +294,29 @@ public class ControladorBiblioteca {
             return;
         }
         
+        int opcionDia = vistaBiblioteca.pedirDiaSemana();
+        if(opcionDia < 1 || opcionDia > 5){
+            vistaBiblioteca.mostrarMensaje("[Error] dia no valido");
+            return;
+        }
+        
         int hora = vistaBiblioteca.pedirHoraCabina();
-        if(hora <8 || hora >16){
+        if (hora < 8 || hora > 16) {
             vistaBiblioteca.mostrarMensaje("[Error] su hora esta fuera del horario de 8:00-16:00");
             return;
         }
         
         String id = "RC-"+System.currentTimeMillis();
         LocalDate hoy = LocalDate.now();
+        int diaActual = hoy.getDayOfWeek().getValue();
+        LocalDate fechaReserva = hoy.plusDays(opcionDia - diaActual);
+        
         LocalTime horaInicio = LocalTime.of(hora, 0);
         LocalTime horaFin = horaInicio.plusHours(1);
         
-        ReservaCabina reserva = new ReservaCabina(id, hoy, horaInicio, horaFin, true, cabina, estudiante);
+        ReservaCabina reserva = new ReservaCabina(id, fechaReserva, horaInicio, horaFin, true, cabina, estudiante);
         cabina.setDisponible(false);
-        
+
         biblioteca.agregarReservaCabina(reserva);
         vistaBiblioteca.mostrarComprobanteCabina(reserva);
     }
@@ -310,6 +331,9 @@ public class ControladorBiblioteca {
         }
     }    
     
+    
+    //ESTUDIANTE PARA ARRIBA
+    ///BIBLIOTECARIO PARA ABAJO
     private void mostrarMenuBibliotecario(Bibliotecario bibliotecario){
     
     }

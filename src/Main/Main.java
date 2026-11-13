@@ -17,8 +17,10 @@ public class Main {
         bibliotecaFmp.setCorreo("bibliotecaFMP@hotmail.com");
         
         Cabina cabina1 = new Cabina("CAB001", "Cabina 1", 6);
+        cabina1.setDisponible(true);
         Cabina cabina2 = new Cabina("CAB002", "Cabina 2", 6);
-        
+        cabina2.setDisponible(true);
+
         //String idEstanteria, String catalogo, int capacidad, Biblioteca biblioteca
         Estanteria estanteria1=new Estanteria("E001", "Clasicos", 100, bibliotecaFmp);
         Estanteria estanteria2=new Estanteria("E001", "Matematicas, Ciencias Exactas y Fisica", 150, bibliotecaFmp);
@@ -30,7 +32,7 @@ public class Main {
         Libro libro3=new Libro("ISBN-1234-0724", "La Odisea", "Homero", 553, "UESLIB-003");
         Libro libro4=new Libro("ISBN-9324-2348", "La Divina Comedia", "Dante Aligeri", 249, "UESLIB-004");
         Libro libro5=new Libro("ISBN-1111-2332", "1984", "George Orwell", 211, "UESLIB-005");
-        Libro libro6=new Libro("ISBN-4500-5000", "La Metamorfosis", "Franz Kafka", 65, "UESLIB-006");
+        Libro libro6=new Libro("ISBN-4500-5000", "La Metamorfosis", "Franz Kafka", 65, "UESLIB-006");   
         Libro libro7=new Libro("ISBN-0342-1234", "Crimen y Castigo", "Fiodor Dostoyevsky", 499, "UESLIB-007");
         Libro libro8=new Libro("ISBN-0342-1234", "Administracion, una perspectiva global y globalizada", "Harol Kuntz", 788, "UESLIB-008");
         Libro libro9=new Libro("ISBN-0342-1234", "Rayuelas", "Julio Cortazar", 653, "UESLIB-009");
@@ -46,7 +48,7 @@ public class Main {
         Estudiante estudiante2=new Estudiante("II26022", "Juan Carlos Ibarrete Ibarrete", "Licenciatura en idiomas", "Carlitos1234", bibliotecaFmp);
         Estudiante estudiante3=new Estudiante("CT26032", "Juan Gerson Cruz Torre", "Licenciatura en Adminstracion de Empresas", "JuanCarlos", bibliotecaFmp);
         Estudiante estudiante4=new Estudiante("MA26001", "Walter Ivan Monge Avila", "Ingenieria Agronomica", "monge1234", bibliotecaFmp);
-        Estudiante estudiante5=new Estudiante("GH27013", "GiseCodigolle Noemy Garcia Hernandez", "Ingenieria Agroindustrial", "soyUes_", bibliotecaFmp);        
+        Estudiante estudiante5=new Estudiante("GH27013", "Giselle Noemy Garcia Hernandez", "Ingenieria Agroindustrial", "soyUes_", bibliotecaFmp);        
 
         bibliotecaFmp.agregarEstudiante(estudiante1);
         bibliotecaFmp.agregarEstudiante(estudiante2);

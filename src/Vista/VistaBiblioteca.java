@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.Biblioteca;
 import Modelo.Bibliotecario;
+import Modelo.Cabina;
 import Modelo.Estudiante;
 import Modelo.Libro;
 import Modelo.PrestamoLibro;
@@ -175,5 +176,47 @@ public class VistaBiblioteca {
         int opc=scanner.nextInt();
         scanner.nextLine();
         return opc;
+    }
+    
+    public void mostrarListaCabinas(List<Cabina> cabinas) {
+        System.out.println("\n==========================================");
+        System.out.println("      ESTADO Y DISPONIBILIDAD DE CABINAS  \n");
+        for (Cabina c : cabinas) {
+            String estado = c.isDisponible() ? "Disponible" : "Ocupada";
+            System.out.println("Código: " + c.getIdCabina() + " | Nombre: " + c.getNombre()
+                    + " | Capacidad: " + c.getCapcaidad()+ " pers. " + estado);
+        }
+        System.out.println("==========================================\n");
+    }
+    
+    public int pedirDiaSemana() {
+        System.out.println("\nSeleccione el día de la semana:");
+        System.out.println("1. Lunes");
+        System.out.println("2. Martes");
+        System.out.println("3. Miércoles");
+        System.out.println("4. Jueves");
+        System.out.println("5. Viernes");
+        System.out.print("Digite una opción (1-5): ");
+        int dia = scanner.nextInt();
+        scanner.nextLine(); // Limpiar buffer
+        return dia;
+    }
+    
+    public void matrizCabina(Cabina cabina, String[][] matriz){
+        System.out.println("========================");
+        System.out.println("Matriz horario de: "+cabina.getNombre()+"["+cabina.getIdCabina()+"]\n");
+        System.out.println(String.format("%-10s | %-10s | %-10s | %-10s | %-10s | %-10s", 
+            "Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"));
+        
+        int horaInicio = 8;
+     
+        for (int i = 0; i < 8; i++) {
+            String rangoDeHora = (horaInicio + i) + "-" + (horaInicio + i + 1);
+            System.out.println(String.format("%-10s | %-10s | %-10s | %-10s | %-10s | %-10s",
+                    rangoDeHora,
+                    matriz[i][0], matriz[i][1], matriz[i][2], matriz[i][3], matriz[i][4]));
+        }
+        System.out.println("========================");
+        
     }
 }

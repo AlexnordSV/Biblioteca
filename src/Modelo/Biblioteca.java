@@ -10,9 +10,9 @@ public class Biblioteca {
     private String sede;
     private String telefono;
     private String correo;
-    private List<Estanteria> listaEstanteria;
+    private List<Estanteria> listaEstanteria = new ArrayList<>();
     private List<Cabina> listaCabinas = new ArrayList<>();
-    private List<Computadora> listaComputadoras;
+    private List<Computadora> listaComputadoras = new ArrayList<>();
     private HashMap<String, Estudiante> mapaEstudiantes = new HashMap<>();
     private HashMap<String, Bibliotecario> mapaBibliotecarios = new HashMap<>();
     private HashMap<String, Libro> mapaLibros = new HashMap<>();
@@ -169,5 +169,31 @@ public class Biblioteca {
                 return cabina;
         }
         return null;
+    }
+    
+    public String [][] matrizHorarioCabina(Cabina cabina){
+        String[][] matriz = new String[8][5];
+        
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 5; j++) {
+                matriz[i][j] = "Libre";
+            }
+        }
+        
+        for(ReservaCabina reserva : mapaReservaCabina.values()){
+            if(reserva.isActivo() && reserva.getCabina().getIdCabina().equalsIgnoreCase(cabina.getIdCabina())){
+                
+                int horaInicio = reserva.getHoraInicio().getHour();
+                int fila = horaInicio-8;
+                
+                java.time.DayOfWeek diaSemana = reserva.getFecha().getDayOfWeek();
+                int columna = diaSemana.getValue() - 1;
+                
+                if(fila >= 0 && fila<8 && columna >=0 && columna < 5){
+                    matriz[fila][columna] = "Ocupado/Reservada";
+                }
+            }
+        }
+        return matriz;
     }
 }
