@@ -7,11 +7,21 @@ public class Computadora {
     private String equipo;
     private String sistemaOperativo;
     private String usuarioSistema;
-    private String estado;
     private Biblioteca biblioteca;
+    private boolean mantenimiento = false;
     private List<PrestamoComputadora> listaPrestamosComputadoras;
     
     //
+
+    public Computadora(String idComputadora, String equipo, String sistemaOperativo, String usuarioSistema, Biblioteca biblioteca) {
+        this.idComputadora = idComputadora;
+        this.equipo = equipo;
+        this.sistemaOperativo = sistemaOperativo;
+        this.usuarioSistema = usuarioSistema;
+        this.biblioteca = biblioteca;
+    }
+    
+
     public Computadora() {
     }
 
@@ -47,14 +57,6 @@ public class Computadora {
         this.usuarioSistema = usuarioSistema;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public Biblioteca getBiblioteca() {
         return biblioteca;
     }
@@ -69,5 +71,13 @@ public class Computadora {
 
     public void setListaPrestamosComputadoras(List<PrestamoComputadora> listaPrestamosComputadoras) {
         this.listaPrestamosComputadoras = listaPrestamosComputadoras;
+    }
+
+    public boolean isMantenimiento() {
+        return mantenimiento;
+    }
+
+    public void setMantenimiento(boolean mantenimiento) {
+        this.mantenimiento = mantenimiento;
     }
 }

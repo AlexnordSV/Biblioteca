@@ -4,6 +4,7 @@ import Modelo.Biblioteca;
 import Controlador.ControladorBiblioteca;
 import Modelo.Bibliotecario;
 import Modelo.Cabina;
+import Modelo.Computadora;
 import Modelo.Estanteria;
 import Modelo.Estudiante;
 import Modelo.Libro;
@@ -17,10 +18,17 @@ public class Main {
         bibliotecaFmp.setCorreo("bibliotecaFMP@hotmail.com");
         
         Cabina cabina1 = new Cabina("CAB001", "Cabina 1", 6);
-        cabina1.setDisponible(true);
+        cabina1.setMantenimiento(true);
         Cabina cabina2 = new Cabina("CAB002", "Cabina 2", 6);
-        cabina2.setDisponible(true);
-
+        cabina2.setMantenimiento(true);
+//String idComputadora, String equipo, String sistemaOperativo, String usuarioSistema, Biblioteca biblioteca
+        Computadora computadora1 = new Computadora("PC001", "Computadora 1", "Linux Ubuntu", "FMP-PC-001", bibliotecaFmp);
+        Computadora computadora2 = new Computadora("PC002", "Computadora 2", "Windows 11 Pro", "FMP-PC-002", bibliotecaFmp);
+        Computadora computadora3= new Computadora("PC003", "Computadora 3", "Linux Mint 22.3", "FMP-PC-003", bibliotecaFmp);
+        Computadora computadora4 = new Computadora("PC004", "Computadora 4", "Linux Ubuntu", "FMP-PC-004", bibliotecaFmp);
+        Computadora computadora5 = new Computadora("PC005", "Computadora 5", "Linux Ubuntu", "FMP-PC-005", bibliotecaFmp);
+        Computadora computadora6 = new Computadora("PC006", "Computadora 6", "Windows 11 Home", "FMP-PC-006", bibliotecaFmp);
+        Computadora computadora7 = new Computadora("PC007", "Computadora 7", "Linux Mint 22.1", "FMP-PC-007", bibliotecaFmp);
         //String idEstanteria, String catalogo, int capacidad, Biblioteca biblioteca
         Estanteria estanteria1=new Estanteria("E001", "Clasicos", 100, bibliotecaFmp);
         Estanteria estanteria2=new Estanteria("E001", "Matematicas, Ciencias Exactas y Fisica", 150, bibliotecaFmp);
@@ -73,6 +81,15 @@ public class Main {
         
         bibliotecaFmp.agregarCabina(cabina1);
         bibliotecaFmp.agregarCabina(cabina2);
+
+        bibliotecaFmp.agregarComputadora(computadora1);
+        bibliotecaFmp.agregarComputadora(computadora2);
+        bibliotecaFmp.agregarComputadora(computadora3);
+        bibliotecaFmp.agregarComputadora(computadora4);
+        bibliotecaFmp.agregarComputadora(computadora5);
+        bibliotecaFmp.agregarComputadora(computadora6);
+        bibliotecaFmp.agregarComputadora(computadora7);
+        
         
         VistaBiblioteca vistaBiblioteca = new VistaBiblioteca(bibliotecaFmp);
         ControladorBiblioteca controladorBiblioteca = new ControladorBiblioteca(vistaBiblioteca, bibliotecaFmp);

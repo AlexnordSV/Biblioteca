@@ -12,6 +12,18 @@ public class PrestamoComputadora {
     private Computadora computadora;
     private Estudiante estudiante;
     //
+
+    public PrestamoComputadora(String idPrestamoComputadora, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, boolean activo, Computadora computadora, Estudiante estudiante) {
+        this.idPrestamoComputadora = idPrestamoComputadora;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.activo = activo;
+        this.computadora = computadora;
+        this.estudiante = estudiante;
+    }
+    
+
     public PrestamoComputadora() {
     }
 

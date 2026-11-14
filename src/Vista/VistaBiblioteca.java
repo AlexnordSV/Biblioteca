@@ -3,8 +3,10 @@ package Vista;
 import Modelo.Biblioteca;
 import Modelo.Bibliotecario;
 import Modelo.Cabina;
+import Modelo.Computadora;
 import Modelo.Estudiante;
 import Modelo.Libro;
+import Modelo.PrestamoComputadora;
 import Modelo.PrestamoLibro;
 import Modelo.ReservaCabina;
 import java.time.LocalDate;
@@ -24,7 +26,7 @@ public class VistaBiblioteca {
         System.out.println(mensaje);
     }
     
-    public String pedirID(){
+    public String pedirCarnet(){
         System.out.println("Sistema bibliotecario, ingresar su CARNET");
         return scanner.nextLine();
     }
@@ -162,12 +164,12 @@ public int validarEntero(String mensaje, String mensajeError) {
         System.out.println("¿A qué hora desea iniciar su reserva?");
         System.out.println("Nota: Las reservas son de 1 hora exacta (Ej: ingrese 14 para las 2:00 PM).");
         System.out.print("Digite solo la hora (formato 24h, ej. 8 a 17): ");
- 
+
         int hora = scanner.nextInt();
-        scanner.nextLine(); 
+        scanner.nextLine();
         return hora;
     }
-        
+
     public void mostrarComprobanteCabina(ReservaCabina reserva) {
         System.out.println("========================================");
         System.out.println("      COMPROBANTE DE RESERVA CABINA     \n");
@@ -180,31 +182,18 @@ public int validarEntero(String mensaje, String mensajeError) {
         System.out.println("Estado:      " + (reserva.isActivo() ? "Activa" : "Finalizada"));
         System.out.println("========================================\n");
     }
-    //De aqui para abajo es la vista del bibliotecario
-    
-    public int menuBibliotecario(Bibliotecario bibliotecario){
-        System.out.println("Bienvenido: "+bibliotecario.getNombreCompleto()+" ("+bibliotecario.getUsuario()+")");
-        System.out.println("Menu de administrador/bibliotecario");
-        System.out.println("1. Ver inventario general de biblioteca\n2. Ver estanterias\n3. Ver prestamos activos"
-                + "\n 4. Libros (modificar, eliminar, mover de estanterias y añadir libros al sistema)\n5-Cerrar sesion");
-        System.out.println("Digite la opción a realizar:");
-        
-        int opc=scanner.nextInt();
-        scanner.nextLine();
-        return opc;
-    }
-    
+   
     public void mostrarListaCabinas(List<Cabina> cabinas) {
         System.out.println("\n==========================================");
         System.out.println("      ESTADO Y DISPONIBILIDAD DE CABINAS  \n");
         for (Cabina c : cabinas) {
-            String estado = c.isDisponible() ? "Disponible" : "Ocupada";
+            String estado = c.isMantenimiento() ? "Disponible" : "Ocupado";
             System.out.println("Código: " + c.getIdCabina() + " | Nombre: " + c.getNombre()
-                    + " | Capacidad: " + c.getCapcaidad()+ " pers. " + estado);
+                    + " | Capacidad: " + c.getCapcaidad() + " pers. " + estado);
         }
         System.out.println("==========================================\n");
     }
-    
+
     public int pedirDiaSemana() {
         System.out.println("\nSeleccione el día de la semana:");
         System.out.println("1. Lunes");
@@ -217,15 +206,15 @@ public int validarEntero(String mensaje, String mensajeError) {
         scanner.nextLine(); // Limpiar buffer
         return dia;
     }
-    
-    public void matrizCabina(Cabina cabina, String[][] matriz){
+
+    public void matrizCabina(Cabina cabina, String[][] matriz) {
         System.out.println("========================");
-        System.out.println("Matriz horario de: "+cabina.getNombre()+"["+cabina.getIdCabina()+"]\n");
-        System.out.println(String.format("%-10s | %-10s | %-10s | %-10s | %-10s | %-10s", 
-            "Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"));
-        
+        System.out.println("Matriz horario de: " + cabina.getNombre() + "[" + cabina.getIdCabina() + "]\n");
+        System.out.println(String.format("%-10s | %-10s | %-10s | %-10s | %-10s | %-10s",
+                "Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"));
+
         int horaInicio = 8;
-     
+
         for (int i = 0; i < 8; i++) {
             String rangoDeHora = (horaInicio + i) + "-" + (horaInicio + i + 1);
             System.out.println(String.format("%-10s | %-10s | %-10s | %-10s | %-10s | %-10s",
@@ -233,6 +222,79 @@ public int validarEntero(String mensaje, String mensajeError) {
                     matriz[i][0], matriz[i][1], matriz[i][2], matriz[i][3], matriz[i][4]));
         }
         System.out.println("========================");
-        
+
+    }
+
+    // vista prestamo compus
+    public int menuPrestamoComputadora() {
+        System.out.println("\n---Apartado de prestamo de computadoras---\n");
+        System.out.println("1. Realizar prestamo de computadora.\n2. Ver horario semanal y disponibilidad de computadoras"
+                + "\n3. Ver reserva actual\n4. Regresar al menu anterior");
+        System.out.println("DIgite la opción a realizar: ");
+
+        int opc = scanner.nextInt();
+        scanner.nextLine();
+        return opc;
+    }
+
+    public String pedirIdComputadora() {
+        System.out.println("\nIngrese el ID de la computadora: \n");
+        return scanner.nextLine();
+    }
+
+    public void mostrarListaCompu(List<Computadora> computadoras) {
+        System.out.println("\n==========================================");
+        System.out.println("      ESTADO Y DISPONIBILIDAD DE PCs  \n");
+        for (Computadora Pc : computadoras) {
+            String estado = Pc.isMantenimiento() ? "Disponible" : "Ocupado";
+            System.out.println("Código: " + Pc.getIdComputadora() + " | Nombre: " + Pc.getEquipo()
+                    + " | estado:" + estado);
+        }
+    }
+
+    public void mostrarComprobanteCompu(PrestamoComputadora prestamo) {
+        System.out.println("========================================");
+        System.out.println("      COMPROBANTE DE RESERVA PC     \n");
+        System.out.println("ID Reserva:  " + prestamo.getIdPrestamoComputadora());
+        System.out.println("Estudiante:  " + prestamo.getEstudiante().getNombreCompleto());
+        System.out.println("Carnet:      " + prestamo.getEstudiante().getCarnet());
+        System.out.println("Computadora: " + prestamo.getComputadora().getEquipo() + " (" + prestamo.getComputadora().getIdComputadora() + " )");
+        System.out.println("Fecha:       " + prestamo.getFecha());
+        System.out.println("Horario:     " + prestamo.getHoraInicio() + " - " + prestamo.getHoraFin() + " hrs");
+        System.out.println("Estado:      " + (prestamo.isActivo() ? "Activa" : "Finalizada"));
+        System.out.println("========================================\n");
+    }
+    
+    public void matrizComputadora(Computadora compu, String[][] matriz) {
+        System.out.println("========================");
+        System.out.println("Matriz horario de: " + compu.getEquipo() + "[" + compu.getIdComputadora() + "]\n");
+        System.out.println(String.format("%-10s | %-10s | %-10s | %-10s | %-10s | %-10s",
+                "Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"));
+
+        int horaInicio = 8;
+
+        for (int i = 0; i < 8; i++) {
+            String rangoDeHora = (horaInicio + i) + "-" + (horaInicio + i + 1);
+            System.out.println(String.format("%-10s | %-10s | %-10s | %-10s | %-10s | %-10s",
+                    rangoDeHora,
+                    matriz[i][0], matriz[i][1], matriz[i][2], matriz[i][3], matriz[i][4]));
+        }
+        System.out.println("========================");
+
+    }    
+    
+    
+    
+    //BIBLIOTECARIO PARA ABAJO
+        public int menuBibliotecario(Bibliotecario bibliotecario) {
+        System.out.println("Bienvenido: " + bibliotecario.getNombreCompleto() + " (" + bibliotecario.getUsuario() + ")");
+        System.out.println("Menu de administrador/bibliotecario");
+        System.out.println("1. Ver inventario general de biblioteca\n2. Ver estanterias\n3. Ver prestamos activos"
+                + "\n 4. Libros (modificar, eliminar, mover de estanterias y añadir libros al sistema)\n5-Cerrar sesion");
+        System.out.println("Digite la opción a realizar:");
+
+        int opc = scanner.nextInt();
+        scanner.nextLine();
+        return opc;
     }
 }

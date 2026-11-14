@@ -7,7 +7,7 @@ public class Cabina {
     private String nombre;
     private Biblioteca biblioteca;
     private int capacidad;
-    private boolean disponible;
+    private boolean mantenimiento;
     private List<ReservaCabina> listaPrestamosCabina;
     
     //
@@ -16,7 +16,7 @@ public class Cabina {
         this.idCabina = idCabina;
         this.nombre = nombre;
         this.capacidad = capacidad;
-        this.disponible = true;
+        this.mantenimiento = true;
     }
 
     public String getIdCabina() {
@@ -51,12 +51,12 @@ public class Cabina {
         this.capacidad = capcaidad;
     }
 
-    public boolean isDisponible() {
-        return disponible;
+    public boolean isMantenimiento() {
+        return mantenimiento;
     }
 
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public void setMantenimiento(boolean disponible) {
+        this.mantenimiento = disponible;
     }
 
     public List<ReservaCabina> getListaPrestamosCabina() {

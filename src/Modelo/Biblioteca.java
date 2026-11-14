@@ -19,6 +19,7 @@ public class Biblioteca {
     private HashMap<String, Libro> mapaLibros = new HashMap<>();
     private HashMap<String, PrestamoLibro> mapaPrestamoLibro = new HashMap<>();
     private HashMap<String, ReservaCabina> mapaReservaCabina = new HashMap<>();
+    private HashMap<String, PrestamoComputadora> mapaPrestamoComputadora = new HashMap<>();
     public void mostrarEmpleados(){}
     public void mostrarComputadoras(){}
     public void mostrarCabinas(){}
@@ -119,6 +120,14 @@ public class Biblioteca {
         this.listaCabinas.add(cabina);
     }
     
+    public void agregarPrestamoCompu(PrestamoComputadora prestamo){
+        mapaPrestamoComputadora.put(prestamo.getIdPrestamoComputadora(), prestamo);
+    }
+    
+    public void agregarComputadora(Computadora compu){
+        this.listaComputadoras.add(compu);
+    }
+    
     public PrestamoLibro prestamoActivoLibro(String carnet) {
         for (PrestamoLibro p : mapaPrestamoLibro.values()) {
             if (p.getEstudiante().getCarnet().equalsIgnoreCase(carnet)
@@ -133,6 +142,15 @@ public class Biblioteca {
         for (ReservaCabina r : mapaReservaCabina.values()) {
             if (r.getEstudiante().getCarnet().equalsIgnoreCase(carnet) && r.isActivo()) {
                 return r;
+            }
+        }
+        return null;
+    }
+    
+    public PrestamoComputadora prestamoActivoCompu(String carnet) {
+        for (PrestamoComputadora p : mapaPrestamoComputadora.values()) {
+            if (p.getEstudiante().getCarnet().equalsIgnoreCase(carnet) && p.isActivo()) {
+                return p;
             }
         }
         return null;
@@ -168,6 +186,14 @@ public class Biblioteca {
         for(Cabina cabina : this.listaCabinas){
             if(cabina.getIdCabina().toUpperCase().equals(idCabina.toUpperCase()))
                 return cabina;
+        }
+        return null;
+    }
+    
+    public Computadora buscarCompu(String idComputadora){
+        for(Computadora compu : this.listaComputadoras){
+            if(compu.getIdComputadora().toUpperCase().equalsIgnoreCase(idComputadora.toUpperCase()))
+                return compu;
         }
         return null;
     }
@@ -210,7 +236,50 @@ public class Biblioteca {
                     int columna = diaSemana.getValue() - 1;
 
                     if (fila >= 0 && fila < 8 && columna >= 0 && columna < 5) {
-                        matriz[fila][columna] = "Ocupado/Reservada";
+                        matriz[fila][columna] = "Ocupado";
+                    }
+                }
+            }
+        }
+        return matriz;
+    }
+    
+    public String[][] obtenerMatrizHorarioComputadora(Computadora computadora, int diaConsultaSeleccionado) {
+        String[][] matriz = new String[8][5];
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 5; j++) {
+                matriz[i][j] = "Libre";
+            }
+        }
+
+        LocalDate hoy = LocalDate.now();
+        int diaActualValor = hoy.getDayOfWeek().getValue();
+        if (diaActualValor > 5) {
+            diaActualValor = 5;
+        }
+
+        int diferencia = diaConsultaSeleccionado - diaActualValor;
+        if (diferencia <= 0) {
+            diferencia += 7; 
+        }
+        LocalDate fechaConsultada = hoy.plusDays(diferencia);
+
+        java.time.temporal.WeekFields weekFields = java.time.temporal.WeekFields.of(java.util.Locale.getDefault());
+        int semanaConsultada = fechaConsultada.get(weekFields.weekOfWeekBasedYear());
+
+        for (PrestamoComputadora p : mapaPrestamoComputadora.values()) {
+            if (p.isActivo() && p.getComputadora().getIdComputadora().equalsIgnoreCase(computadora.getIdComputadora())) {
+
+                int semanaPrestamo = p.getFecha().get(weekFields.weekOfWeekBasedYear());
+
+                if (semanaPrestamo == semanaConsultada) {
+                    int horaInicio = p.getHoraInicio().getHour();
+                    int fila = horaInicio - 8; 
+                    int columna = p.getFecha().getDayOfWeek().getValue() - 1; 
+                    
+                    if (fila >= 0 && fila < 8 && columna >= 0 && columna < 5) {
+                        matriz[fila][columna] = "Ocupado";
                     }
                 }
             }
