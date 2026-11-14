@@ -489,7 +489,7 @@ public class ControladorBiblioteca {
     //ESTUDIANTE PARA ARRIBA
     ///BIBLIOTECARIO PARA ABAJO
     private void mostrarMenuBibliotecario(Bibliotecario bibliotecario){
-    
+        vistaBiblioteca.menuBibliotecario(bibliotecario);
     }
 
     public void controladorMostrarBiblioteca(){
